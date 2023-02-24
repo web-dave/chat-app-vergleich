@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SocketService } from 'src/main';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'home',
@@ -25,12 +25,12 @@ import { SocketService } from 'src/main';
 export class HomeComponent {
   userName = '';
   router = inject(Router);
-  socket = inject(SocketService);
+  service = inject(MessageService);
   handleSubmit() {
     localStorage.setItem('userName', this.userName);
-    this.socket.emit('newUser', {
+    this.service.send('newUser', {
       userName: this.userName,
-      socketID: this.socket.id,
+      socketID: this.service.id,
     });
     this.router.navigate(['/chat']);
   }

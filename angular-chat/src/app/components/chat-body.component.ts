@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { IMessage, ITyping } from '../models';
 
 @Component({
   selector: 'chat-body',
@@ -32,8 +33,7 @@ import { Router } from '@angular/router';
               <p>{{ message.text }}</p>
             </div>
           </div>
-          /</ng-template
-        >
+        </ng-template>
       </ng-container>
 
       <div class="message__status">
@@ -43,8 +43,8 @@ import { Router } from '@angular/router';
     </div>`,
 })
 export class ChatBodyComponent {
-  @Input() messages: any;
-  @Input() typingStatus = 'typingStatus';
+  @Input() messages: IMessage[] | null = [];
+  @Input() typingStatus: ITyping | null = 'typingStatus';
   @Input() lastMessageRef = 'lastMessageRef';
   me = localStorage.getItem('userName');
 
