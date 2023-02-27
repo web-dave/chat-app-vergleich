@@ -7,5 +7,9 @@ export const appRoutes: Routes = [
     path: '',
     component: HomeComponent,
   },
-  { path: 'chat', component: ChatComponent },
+  {
+    path: 'chat',
+    loadComponent: () =>
+      import('./components/chat.component').then((m) => m.ChatComponent),
+  },
 ];

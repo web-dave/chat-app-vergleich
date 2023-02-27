@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { IMessage, ITyping } from '../models';
+import { IMessage, ITyping } from '../../../../models';
 
 @Component({
   selector: 'chat-body',

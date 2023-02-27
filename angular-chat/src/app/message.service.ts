@@ -1,11 +1,11 @@
-import { Injectable, OnInit } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import socketIO from 'socket.io-client';
-import { IMessage, ITyping, IUser } from './models';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { io } from 'socket.io-client';
+import { IMessage, ITyping, IUser } from '../../../models';
 
 @Injectable({ providedIn: 'root' })
 export class MessageService {
-  private socket = (socketIO as any).connect('http://localhost:4000');
+  private socket = io('http://localhost:4000');
   id = this.socket.id;
 
   private users$$ = new BehaviorSubject<IUser[]>([]);
