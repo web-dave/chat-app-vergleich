@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "server": "cd server && npm start",
+    "ng": "cd angular-chat && npm start",
+    "vue": "cd vue-chat && npm start",
+    "react": "cd react-chat && npm start"
+  }
+}
