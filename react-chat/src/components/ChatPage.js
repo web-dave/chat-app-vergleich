@@ -4,6 +4,7 @@ import ChatBody from "./ChatBody";
 import ChatFooter from "./ChatFooter";
 
 const ChatPage = ({ socket }) => {
+  const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
   const [typingStatus, setTypingStatus] = useState("");
   const lastMessageRef = useRef(null);
@@ -17,13 +18,17 @@ const ChatPage = ({ socket }) => {
   }, [socket]);
 
   useEffect(() => {
+    socket.on("newUserResponse", (data) => setUsers(data));
+  }, [socket, users]);
+
+  useEffect(() => {
     // 👇️ scroll to bottom every time messages change
     lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   return (
     <div className="chat">
-      <ChatBar socket={socket} />
+      <ChatBar users={users} />
       <div className="chat__main">
         <ChatBody
           messages={messages}
