@@ -11,14 +11,26 @@ const ChatPage = ({ socket }) => {
 
   useEffect(() => {
     socket.on("messageResponse", (data) => setMessages([...messages, data]));
+
+    return () => {
+      socket.off('messageResponse')
+    }
   }, [socket, messages]);
 
   useEffect(() => {
     socket.on("typingResponse", (data) => setTypingStatus(data));
+
+    return () => {
+      socket.off('typingResponse')
+    }
   }, [socket]);
 
   useEffect(() => {
     socket.on("newUserResponse", (data) => setUsers(data));
+
+    return () => {
+      socket.off('newUserResponse')
+    }
   }, [socket, users]);
 
   useEffect(() => {
