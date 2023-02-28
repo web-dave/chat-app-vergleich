@@ -11,27 +11,15 @@ const ChatPage = ({ socket }) => {
 
   useEffect(() => {
     socket.on("messageResponse", (data) => setMessages(messages => [...messages, data]));
-
-    return () => {
-      socket.off('messageResponse')
-    }
-  }, [socket]);
-
-  useEffect(() => {
     socket.on("typingResponse", (data) => setTypingStatus(data));
-
-    return () => {
-      socket.off('typingResponse')
-    }
-  }, [socket]);
-
-  useEffect(() => {
     socket.on("newUserResponse", (data) => setUsers(data));
 
     return () => {
+      socket.off('messageResponse')
+      socket.off('typingResponse')
       socket.off('newUserResponse')
     }
-  }, [socket, users]);
+  }, [socket]);
 
   useEffect(() => {
     // 👇️ scroll to bottom every time messages change
