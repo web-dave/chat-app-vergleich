@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const ChatBody = ({ messages, typingStatus, lastMessageRef }) => {
   const navigate = useNavigate();
+  const currentUserName = localStorage.getItem('userName')
 
   const handleLeaveChat = () => {
     localStorage.removeItem("userName");
@@ -20,7 +21,7 @@ const ChatBody = ({ messages, typingStatus, lastMessageRef }) => {
 
       <div className="message__container">
         {messages.map((message) =>
-          message.name === localStorage.getItem("userName") ? (
+          message.name === currentUserName ? (
             <div className="message__chats" key={message.id}>
               <p className="sender__name">You</p>
               <div className="message__sender">
