@@ -10,12 +10,12 @@ const ChatPage = ({ socket }) => {
   const lastMessageRef = useRef(null);
 
   useEffect(() => {
-    socket.on("messageResponse", (data) => setMessages([...messages, data]));
+    socket.on("messageResponse", (data) => setMessages(messages => [...messages, data]));
 
     return () => {
       socket.off('messageResponse')
     }
-  }, [socket, messages]);
+  }, [socket]);
 
   useEffect(() => {
     socket.on("typingResponse", (data) => setTypingStatus(data));
