@@ -153,3 +153,13 @@
   font-size: 13px;
   font-style: italic;
 }
+
+/* https://webaim.org/techniques/css/invisiblecontent/ */
+.sr-only {
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
