@@ -29,7 +29,5 @@ import { ChatFooterComponent } from './chat-footer.component';
 })
 export class ChatComponent {
   service = inject(MessageService);
-  messages: any;
-  typingStatus: any;
   lastMessageRef: any;
 }

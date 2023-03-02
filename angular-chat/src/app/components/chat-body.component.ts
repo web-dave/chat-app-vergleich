@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { IMessage, ITyping } from '../../../../models';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'chat-body',
@@ -46,12 +47,17 @@ export class ChatBodyComponent {
   @Input() messages: IMessage[] | null = [];
   @Input() typingStatus: ITyping | null = 'typingStatus';
   @Input() lastMessageRef = 'lastMessageRef';
-  me = localStorage.getItem('userName');
+  me = localStorage.getItem('userName') as string;
+  service = inject(MessageService);
 
   router = inject(Router);
 
   handleLeaveChat() {
     localStorage.removeItem('userName');
+    this.service.send('userLeft', {
+      userName: this.me,
+      socketID: this.service.id,
+    });
     this.router.navigate(['/']);
   }
 }

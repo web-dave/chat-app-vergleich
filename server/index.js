@@ -24,6 +24,11 @@ socketIO.on("connection", (socket) => {
     users.push(data);
     socketIO.emit("newUserResponse", users);
   });
+  socket.on("userLeft", (data) => {
+    // users.push(data);
+    users = users.filter((user) => user.userName !== data.userName);
+    socketIO.emit("newUserResponse", users);
+  });
 
   socket.on("disconnect", () => {
     console.log("🔥: A user disconnected");

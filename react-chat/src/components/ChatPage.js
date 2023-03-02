@@ -10,15 +10,17 @@ const ChatPage = ({ socket }) => {
   const lastMessageRef = useRef(null);
 
   useEffect(() => {
-    socket.on("messageResponse", (data) => setMessages(messages => [...messages, data]));
+    socket.on("messageResponse", (data) =>
+      setMessages((messages) => [...messages, data])
+    );
     socket.on("typingResponse", (data) => setTypingStatus(data));
     socket.on("newUserResponse", (data) => setUsers(data));
 
     return () => {
-      socket.off('messageResponse')
-      socket.off('typingResponse')
-      socket.off('newUserResponse')
-    }
+      socket.off("messageResponse");
+      socket.off("typingResponse");
+      socket.off("newUserResponse");
+    };
   }, [socket]);
 
   useEffect(() => {
@@ -34,6 +36,7 @@ const ChatPage = ({ socket }) => {
           messages={messages}
           typingStatus={typingStatus}
           lastMessageRef={lastMessageRef}
+          socket={socket}
         />
         <ChatFooter socket={socket} />
       </div>

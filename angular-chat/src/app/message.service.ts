@@ -18,7 +18,7 @@ export class MessageService {
   typingStatus$ = this.typingStatus$$.asObservable();
 
   send(
-    signal: 'typing' | 'message' | 'newUser',
+    signal: 'typing' | 'message' | 'newUser' | 'userLeft',
     message: IMessage | ITyping | IUser
   ) {
     this.socket.emit(signal, message);

@@ -1,12 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const ChatBody = ({ messages, typingStatus, lastMessageRef }) => {
+const ChatBody = ({ messages, typingStatus, lastMessageRef, socket }) => {
   const navigate = useNavigate();
-  const currentUserName = localStorage.getItem('userName')
+  const currentUserName = localStorage.getItem("userName");
 
   const handleLeaveChat = () => {
     localStorage.removeItem("userName");
+    socket.emit("userLeft", { userName: currentUserName, socketID: socket.id });
     navigate("/");
   };
 
@@ -20,7 +21,7 @@ const ChatBody = ({ messages, typingStatus, lastMessageRef }) => {
       </header>
 
       <div className="message__container">
-        {messages.map((message) =>
+        {messages.map((message) => (
           <div className="message__chats" key={message.id}>
             {message.name === currentUserName ? (
               <>
@@ -38,7 +39,7 @@ const ChatBody = ({ messages, typingStatus, lastMessageRef }) => {
               </>
             )}
           </div>
-        )}
+        ))}
 
         <div className="message__status">
           <p>{typingStatus}</p>
