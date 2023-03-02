@@ -8,21 +8,19 @@ const socket = socketIO.connect("http://localhost:4000");
 function App() {
   return (
     <BrowserRouter>
-      <div>
-        <Suspense fallback={<>...</>}>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Suspense fallback={<>...</>}>
-                  <Home socket={socket} />
-                </Suspense>
-              }
-            ></Route>
-            <Route path="/chat" element={<ChatPage socket={socket} />}></Route>
-          </Routes>
-        </Suspense>
-      </div>
+      <Suspense fallback={<>...</>}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<>...</>}>
+                <Home socket={socket} />
+              </Suspense>
+            }
+          ></Route>
+          <Route path="/chat" element={<ChatPage socket={socket} />}></Route>
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }
