@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, ref, type Ref } from 'vue'
 const socket = inject('socket') as any
 
-let message = ''
+let message: Ref<string> = ref('')
 const me = localStorage.getItem('userName')
 
 function handleSendMessage(e: any) {
   e.preventDefault()
   if (me !== null) {
     socket.emit('message', {
-      text: message,
+      text: message.value,
       name: me,
       id: `${socket.id}${Math.random()}`,
       socketID: socket.id
     })
   }
-  message = ''
+  message.value = ''
 }
 function handleTyping() {
   if (me !== null) {
