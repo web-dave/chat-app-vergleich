@@ -39,6 +39,7 @@ class ChatFooterState extends State<ChatFooter> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          Text(appState.typingMessage),
           TextFormField(
             validator: (value) =>
                 (value == null || value.isEmpty) ? 'Whäääää!' : null,

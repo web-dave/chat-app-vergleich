@@ -7,6 +7,10 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class MyAppState extends ChangeNotifier {
   String? username;
+  String typingMessage = '';
+  List messages = [];
+  List users = [];
+  IO.Socket socket = IO.io('http://localhost:4000');
   void login(String? name) {
     if (!name.isNull) {
       username = name;
@@ -19,7 +23,9 @@ class MyAppState extends ChangeNotifier {
     return username != null;
   }
 
-  IO.Socket socket = IO.io('http://localhost:4000');
+  MyAppState() {
+    listen();
+  }
 
   void sendMessage(String signal, dynamic msg) {
     dynamic message;
@@ -52,5 +58,21 @@ class MyAppState extends ChangeNotifier {
     }
     socket.emit(signal, message);
     notifyListeners();
+  }
+
+  void listen() {
+    socket.on('newUserResponse', (data) {
+      users.add(data);
+      notifyListeners();
+    });
+    socket.on('typingResponse', (data) {
+      typingMessage = data;
+      print(data);
+      notifyListeners();
+    });
+    socket.on('messageResponse', (data) {
+      messages.add(data);
+      notifyListeners();
+    });
   }
 }

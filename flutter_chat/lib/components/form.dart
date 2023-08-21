@@ -41,12 +41,12 @@ class MyCustomFormState extends State<MyCustomForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('Sign in to Open Chat'),
+          const Text('Sign in to Open Chat'),
           TextFormField(
               validator: (value) =>
                   (value == null || value.isEmpty) ? 'Whäääää!' : null,
               restorationId: 'username',
-              decoration: InputDecoration(hintText: 'username'),
+              decoration: const InputDecoration(hintText: 'username'),
               onChanged: (value) => formValue.username = value),
           IconButton(
             onPressed: () {
