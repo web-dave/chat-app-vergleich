@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTMX CHAT</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <script
+      src="https://unpkg.com/htmx.org@1.9.6"
+      integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+
+    <div id="app">
+      <!-- localstorage aber scheint nicht echter usecase -->
+      <!-- <form id="loginForm" class="home__container" >Save Data</button>
+
+        
+        <h2 class="home__header">Sign in to Open Chat</h2>
+        <label for="username">Username</label>
+        <input
+          class="username__input"
+          type="text"
+          minlength="6"
+          name="username"
+        />
+        <button  class="home__cta" hx-on:click="localStorage.setItem('userName', document.querySelector('.username__input').value)" >SIGN IN</button>
+      </form> -->
+      <div
+        hx-trigger="click"
+        hx-get="http://localhost:4730/books"
+        hx-swap="beforeend"
+      >
+        Load
+      </div>
+      <div hx-ext="ws" ws-connect="wss://test-ws.deno.dev">
+        <!-- 
+            Socket Server von StefanAtDev.
+            Hier zu finden:
+            https://github.com/sgohlke/deno-deploy-ws/blob/main/server.ts
+         -->
+        <form id="form" ws-send>
+          <input name="chat_msg" />
+        </form>
+        <div id="notifications">New message received</div>
+        <div id="chat_room" class="chat_room"></div>
+      </div>
+      <!-- <div
+        class="chat"
+        hx-ext="ws"
+        ws-connect="wss://socketsbay.com/wss/v2/1/demo/"
+      >  <div class="chat__sidebar" hx-swap-oob="true">
+          <div class="chat__sidebar">
+            <h2>Open Chat</h2>
+            <div>
+              <h4 class="chat__header">ACTIVE USERS</h4>
+              <div class="chat__users" hx-swap-oob="beforeend">1</div>
+            </div>
+          </div>
+        </div>
+        <div class="chat__main">
+          MAIN
+          <chat-body
+            [messages]="service.messages$|async"
+            [typingStatus]="service.typingStatus$ | async"
+            [lastMessageRef]="lastMessageRef"
+          />
+          <chat-footer />
+        </div>
+      </div> -->
+      <div class="foo"></div>
+    </div>
+    <script>
+      function checkUsername() {
+        if (localStorage.getItem("userName") !== null) {
+          document.querySelector("#loginForm").remove();
+        } else {
+          document.querySelector(".chat").remove();
+        }
+      }
+      // checkUsername()
+    </script>
+  </body>
+</html>
